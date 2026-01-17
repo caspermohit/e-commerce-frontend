@@ -1,7 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+import Logout from '../components/Logout'
+import Auth from '../pages/Auth';
+import { useState, useEffect } from 'react';
+
+
 
 
 function Navbar() {
+    const [token, setToken] = useState('');
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setToken(token);
+    },   []);
+
+
   return (
    <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -31,48 +45,29 @@ function Navbar() {
 
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Link
+                product list
               </a>
             </li>
 
             <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
+          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul className="dropdown-menu">
+            <li><a className="dropdown-item" href="#">Clothes</a></li>
+            <li><a className="dropdown-item" href="#">Shoes</a></li>
+            <li><a className="dropdown-item" href="#">Accessories</a></li>
+            <li><a className="dropdown-item" href="#">Beauty</a></li>
+          </ul>
+        </li>
 
             <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true">
-                Disabled
+              <a className="nav-link " aria-disabled="true">
+                Cart
               </a>
             </li>
           </ul>
+        
 
           <form className="d-flex" role="search">
             <input
@@ -85,6 +80,7 @@ function Navbar() {
               Search
             </button>
           </form>
+            {token ? <Link to='/login'>Logout</Link> : <Link to='/login'>Login</Link>}
         </div>
       </div>
     </nav>
